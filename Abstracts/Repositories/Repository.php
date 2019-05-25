@@ -17,7 +17,9 @@ use Request;
 abstract class Repository extends PrettusRepository implements PrettusCacheable
 {
 
-    use PrettusCacheableRepository;
+    use PrettusCacheableRepository {
+        paginate as public paginateExtend;
+    }
     
     /**
      * Define the maximum amount of entries per page that is returned. 
@@ -95,7 +97,7 @@ abstract class Repository extends PrettusRepository implements PrettusCacheable
             $limit = $this->maxPaginationLimit;
         }
 
-        return parent::paginate($limit, $columns, $method);
+        return parent::paginateExtend($limit, $columns, $method);
     }
 
     private function getCurrentContainer(): string
